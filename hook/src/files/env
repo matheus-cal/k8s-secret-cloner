@@ -1,0 +1,14 @@
+"Secrets"
+export SECRET_NAME=secret
+export SECRET_PREFIX=pipelines
+---
+"Namespaces"
+export SOURCE_NAMESPACE=core
+export INTENDED_NAMESPACE=foobar-xyz
+---
+"Labels"
+export CHART=foobar-xyz
+export K8S_ACCOUNT_ID=foobar-xyz
+export K8S_MANAGED_BY=foobar-xyz
+export K8S_NAME=foobar-xyz
+export NAME=foobar-xyz
