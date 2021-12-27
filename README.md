@@ -106,3 +106,16 @@ de *log* disponibilizadas na saída:
 2000/01/01 00:00:00 Secret cloned: {'first-example''namespace2''1515bd3c-2784-4b8f-9017-eba913498001'}
 2000/01/01 00:00:00 Labels were patched.
 ```
+
+---
+
+## Realeases
+
+---
+
+## Licenciamento
+
+O Kubernetes Secret Cloner é licenciado sobre [GNU] General Public License v3.0.
+[GNU]: https://github.com/matheus-cal/k8s-secret-cloner/blob/main/LICENSE
+
+Os contribuídores não garantem o funcionamento desta aplicação.
