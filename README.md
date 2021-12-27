@@ -1,27 +1,38 @@
-# Secret Cloner
+# Kubernetes Secret Cloner 
 
-This is an implementation of an application built to get a secret from a source namespace 
-and clone it -- or update it if there is one already -- in a intended namespace using Golang.
+    O Kubernetes Secret Cloner é uma aplicação open-source que permite que *secrets* sejam
+clonadas e personalizadas entre *namespaces* Kubernetes de forma e ágil e confiável, mantendo
+suas caracteristicas originais e cedendo a oportunidade de acrescentar e incorporar *labels*
+adicionais.
 
-It's main objective is to run after the Keycloak client is created for a customer 
-(as a post-install or post-upgrade job) to keep secrets up to date in different namespaces.
+    Complementarmente, a aplicação é capaz de aferir se a *secret* já existe no *namespace*
+pretendido, e já havendo, ela tem seus metadados e *labels* atualizado.
 
-## How it works
+---
 
-This application creates an unilateral job, in other words, it produces one job
-per secret.
+## Funcionamento
 
-It's composed by an one-sidedly flow where the application checks if the target secret
-from exists in the source namespace, and retrives it if it does. Once the secret is retrived,
-if there's not a secret with the same name, it's cloned in the intended namespace. 
+    O Kubernetes Secret Cloner funciona com *jobs* unilaterais, ou seja, produzindo um
+único *job* por *secret*.
 
-Once there is a secret with the same name as the target one, it s updated with new relevant
-information.
+    O fluxo ocorre apartir do ponto no qual a aplicação checa se o *secret* existe no *namespace*
+de origem, e o retorna se sim. Uma vez que o *secret* é retornado, se não houver uma *secret* de mesmo 
+nome, ela é clonada no *namespace* pretendido. Se já houver uma *secret* de mesmo nome, ela é atualizada
+com os *patchs* e *labels* necessários.
 
-Lastly, the required labels are patched. 
+---
 
-You can use the file 'env.sh' in the directory 'scripts' for development, when running locally.
+## Requerimentos
 
-## References
+    Para o funcionamento da aplicação, é necessário a instalação localmente das seguintes ferramentas
+localmente:
 
-* https://github.com/kubernetes/client-go/
+| Ferramenta |      Versão     |
+|:----------:|:---------------:|
+|   [Go]     |  v1.6 ou maior  |
+|[Kubernetes]|  v1.23 ou maior |
+
+[Go]: https://github.com/golang/go
+[Kubernetes]: https://github.com/kubernetes/kubernetes
+
+---
