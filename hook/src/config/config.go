@@ -42,15 +42,11 @@ func configure() *rest.Config {
 }
 
 func EnvConfig() map[string]string {
-	envs := [13]string{
+	envs := [9]string{
 		"SECRET_NAME",
 		"SECRET_PREFIX",
 		"SOURCE_NAMESPACE",
 		"INTENDED_NAMESPACE",
-		"SECRET_KEY_NAME",
-		"DOMAIN",
-		"INI_PATH",
-		"MESSAGE_ID",
 		"CHART",
 		"K8S_ACCOUNT_ID",
 		"K8S_MANAGED_BY",

@@ -1,20 +1,14 @@
 "Secrets"
-export SECRET_NAME=creds
-export SECRET_PREFIX=aws
+export SECRET_NAME=secret
+export SECRET_PREFIX=pipelines
 ---
 "Namespaces"
 export SOURCE_NAMESPACE=core
-export INTENDED_NAMESPACE=crossplane
----
-"Keys"
-export SECRET_KEY_NAME=CLIENT_SECRET
-export DOMAIN=nonapplicable
-export INI_PATH=pod.ini
-export MESSAGE_ID=nonapplicable
+export INTENDED_NAMESPACE=foobar-xyz
 ---
 "Labels"
-export CHART=crossplane-chart
-export K8S_ACCOUNT_ID=nonapplicable
-export K8S_MANAGED_BY=ansible
-export K8S_NAME=nonapplicable
-export NAME=nonapplicable
+export CHART=foobar-xyz
+export K8S_ACCOUNT_ID=foobar-xyz
+export K8S_MANAGED_BY=foobar-xyz
+export K8S_NAME=foobar-xyz
+export NAME=foobar-xyz
