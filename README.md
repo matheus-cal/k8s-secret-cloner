@@ -43,7 +43,7 @@ Os passos a seguir ocorrem considerando que as configurações de autorização 
 o ambiente *Kubernetes* localmente já foram formadas. 
 
 O primeiro passo para a utilização da aplicação, é exportar como variáveis de ambiente as informações
-necessárias no arquivo `env` em `hook/files`:
+essenciais para funcionamento no arquivo `env` em `hook/files`:
 
 ```
 export SECRET_NAME=example
@@ -60,26 +60,26 @@ export NAME=example
 Cada uma destas variáveis de ambiente, possui uma importância no funcionamento da aplicação, e suas definições 
 serão explicadas a seguir:
 
-#### Variáveis da *Secret*
+### Variáveis da *Secret*
 
-| Variável de Ambiente |              Valor                 |
-|:--------------------:|:----------------------------------:|
-|   SECRET_NAME        |  O nome da *secret* alvo.          |
-|   SECRET_PREFIX      |  O prefixo do nome da *secret*.    |
+| *Variável de Ambiente* |            *Valor*                 |
+|:----------------------:|:----------------------------------:|
+|   SECRET_NAME          |  O nome da *secret* alvo.          |
+|   SECRET_PREFIX        |  O prefixo do nome da *secret*.    |
 
-#### Variáveis do *Namespace*
+### Variáveis do *Namespace*
 
-| Variável de Ambiente |              Valor                 |
-|:--------------------:|:----------------------------------:|
-|  SOURCE_NAMESPACE    |  O nome do *namespace* de origem da *secret*.                         |
-|  INTENDED_NAMESPACE  |  O nome do *namespace* pretendido no qual a *secret* vai ser clonada. |
+| *Variável de Ambiente* |            *Valor*                 |
+|:----------------------:|:----------------------------------:|
+|  SOURCE_NAMESPACE      |  O nome do *namespace* de origem da *secret*.                         |
+|  INTENDED_NAMESPACE    |  O nome do *namespace* pretendido no qual a *secret* vai ser clonada. |
 
-#### Variáveis das *Labels*
+### Variáveis das *Labels*
 
-| Variável de Ambiente |              Valor                                                |
-|:--------------------:|:-----------------------------------------------------------------:|
-|   CHART              |  *label* responsável por nomear o *chart*.                        |
-|   K8S_ACCOUNT_ID     |  *label* responsável por definir o ID do *Kubernetes Account*.    |
-|   K8S_MANAGED_BY     |  *label* responsável por definir o gerenciador da *secret*.       |
-|   K8S_NAME           |  *label* responsável por definir o nome *Kubernetes* da *secret*. |
-|   NAME               |  *label* responsável por definir o nome usual da *secret*.        |
+| *Variável de Ambiente* |              *Valor*                                                |
+|:----------------------:|:-----------------------------------------------------------------:|
+|   CHART                |  *label* responsável por nomear o *chart*.                        |
+|   K8S_ACCOUNT_ID       |  *label* responsável por definir o ID do *Kubernetes Account*.    |
+|   K8S_MANAGED_BY       |  *label* responsável por definir o gerenciador da *secret*.       |
+|   K8S_NAME             |  *label* responsável por definir o nome *Kubernetes* da *secret*. |
+|   NAME                 |  *label* responsável por definir o nome usual da *secret*.        |
