@@ -118,6 +118,7 @@ Os *releases* atuais mantidos, e também os futuros releases, estão e serão li
 |   v1.0  |     [v1.0.0]    | Dec 27, 2021 |
 
 [v1.0.0]: https://github.com/matheus-cal/k8s-secret-cloner/releases/tag/1.0.0
+
 ---
 
 ## Licenciamento
