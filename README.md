@@ -36,3 +36,24 @@ localmente:
 [Kubernetes]: https://github.com/kubernetes/kubernetes
 
 ---
+
+## Começando
+
+O primeiro passo para a utilização da aplicação, é exportar como variáveis de ambiente as informações
+necessárias no arquivo `env` em `hook/files`:
+
+```
+export SECRET_NAME=example
+export SECRET_PREFIX=first
+export SOURCE_NAMESPACE=namespace1
+export INTENDED_NAMESPACE=namespace2
+export SECRET_KEY_NAME=secretkeyname
+export DOMAIN=domain
+export INI_PATH=pod.ini
+export MESSAGE_ID=example
+export CHART=example
+export K8S_ACCOUNT_ID=example
+export K8S_MANAGED_BY=example
+export K8S_NAME=example
+export NAME=example
+```
