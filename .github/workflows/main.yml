@@ -23,7 +23,7 @@ jobs:
         go get -u golang.org/x/lint/golint
     
     - name: Build
-      run: go build hook/src/
+      run: cd hook/src/ && go build .
 
     - name: Test With Coverage
       run: cd hook/src/ && go test -gcflags=-l -v  -coverprofile=coverage.txt -covermode=atomic ./...
