@@ -29,7 +29,7 @@ localmente:
 
 | Ferramenta |      Versão     |
 |:----------:|:---------------:|
-|   [Go]     |  v1.6 ou maior  |
+|   [Go]     |  v1.17 ou maior  |
 |[Kubernetes]|  v1.23 ou maior |
 
 [Go]: https://github.com/golang/go
