@@ -23,7 +23,7 @@ func GetSecret(clientset *kubernetes.Clientset, namespace string) *v1.Secret {
 		panic(err.Error())
 	}
 
-	envConfig := config.EnvConfig()
+	envConfig, _ := config.EnvConfig()
 
 	secretName := fmt.Sprintf("%s-%s", envConfig["SECRET_PREFIX"], envConfig["SECRET_NAME"])
 	secret, err := clientset.CoreV1().Secrets(namespace).Get(context.TODO(), secretName, metav1.GetOptions{})
@@ -62,7 +62,7 @@ func ModifySecret(secret *v1.Secret) (*v1.Secret, error) {
 		return nil, err
 	}
 
-	envConfig := config.EnvConfig()
+	envConfig, _ := config.EnvConfig()
 	modifiedSecret.Namespace = envConfig["INTENDED_NAMESPACE"]
 	modifiedSecret.ResourceVersion = ""
 	modifiedSecret.UID = ""
@@ -71,7 +71,7 @@ func ModifySecret(secret *v1.Secret) (*v1.Secret, error) {
 }
 
 func CloneSecret(clientset *kubernetes.Clientset, modifiedSecret *v1.Secret) *v1.Secret {
-	envConfig := config.EnvConfig()
+	envConfig, _ := config.EnvConfig()
 	intended_namespace := envConfig["INTENDED_NAMESPACE"]
 
 	done, err := clientset.CoreV1().Secrets(intended_namespace).Create(context.TODO(), modifiedSecret, metav1.CreateOptions{})
@@ -98,7 +98,7 @@ func CloneSecret(clientset *kubernetes.Clientset, modifiedSecret *v1.Secret) *v1
 }
 
 func PatchLabelSecret(clientset *kubernetes.Clientset, secret *v1.Secret, namespace string, secretName string) {
-	envConfig := config.EnvConfig()
+	envConfig, _ := config.EnvConfig()
 	secret.Labels["helm.sh/chart"] = envConfig["CHART"]
 	secret.Labels["app.kubernetes.io/account-id"] = envConfig["K8S_ACCOUNT_ID"]
 	secret.Labels["app.kubernetes.io/managed-by"] = envConfig["K8S_MANAGED_BY"]

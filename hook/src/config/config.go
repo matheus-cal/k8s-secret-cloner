@@ -2,6 +2,7 @@ package config
 
 import (
 	"flag"
+	"fmt"
 	"log"
 	"os"
 	"path/filepath"
@@ -12,7 +13,40 @@ import (
 	"k8s.io/client-go/util/homedir"
 )
 
-func configure() *rest.Config {
+func EnvConfig() (map[string]string, error) {
+	envs := [9]string{
+		"SECRET_NAME",
+		"SECRET_PREFIX",
+		"SOURCE_NAMESPACE",
+		"INTENDED_NAMESPACE",
+		"CHART",
+		"K8S_ACCOUNT_ID",
+		"K8S_MANAGED_BY",
+		"K8S_NAME",
+		"NAME",
+	}
+
+	config := map[string]string{}
+
+	for _, envName := range envs {
+		val, ok := os.LookupEnv(envName)
+
+		if !ok {
+			log.Printf("Missing the environment variable '%s'", envName)
+			return config, fmt.Errorf("Missing the environment variable '%s'", envName)
+		}
+
+		if val == "" {
+			log.Printf("The value of the environment variable '%s' cannot be an empty string", envName)
+			return config, fmt.Errorf("The value of the environment variable '%s' cannot be an empty string", envName)
+		}
+		config[envName] = val
+	}
+
+	return config, nil
+}
+
+func CreateClientset() (*kubernetes.Clientset, string) {
 	var config *rest.Config
 
 	// first tries to configure itself from Kubernetes environment
@@ -38,43 +72,8 @@ func configure() *rest.Config {
 		}
 	}
 
-	return config
-}
-
-func EnvConfig() map[string]string {
-	envs := [9]string{
-		"SECRET_NAME",
-		"SECRET_PREFIX",
-		"SOURCE_NAMESPACE",
-		"INTENDED_NAMESPACE",
-		"CHART",
-		"K8S_ACCOUNT_ID",
-		"K8S_MANAGED_BY",
-		"K8S_NAME",
-		"NAME",
-	}
-
-	config := map[string]string{}
-
-	for _, envName := range envs {
-		val, ok := os.LookupEnv(envName)
-
-		if !ok {
-			log.Fatalf("Missing the environment variable '%s'", envName)
-		}
-
-		if val == "" {
-			log.Fatalf("The value of the environment variable '%s' cannot be an empty string", envName)
-		}
-		config[envName] = val
-	}
-
-	return config
-}
-
-func CreateClientset() (*kubernetes.Clientset, string) {
-	envConfig := EnvConfig()
-	clientset, err := kubernetes.NewForConfig(configure())
+	envConfig, _ := EnvConfig()
+	clientset, err := kubernetes.NewForConfig(config)
 	namespace := envConfig["SOURCE_NAMESPACE"]
 
 	if err != nil {
