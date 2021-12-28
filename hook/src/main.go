@@ -1,12 +1,17 @@
 package main
 
 import (
+	"log"
+
 	config "github.com/matheus-cal/k8s-secret-cloner/hook/src/config"
 	secrets "github.com/matheus-cal/k8s-secret-cloner/hook/src/secrets"
 )
 
 func main() {
-	envConfig := config.EnvConfig()
+	envConfig, err := config.EnvConfig()
+	if err != nil {
+		log.Fatalf("Cannot proceed missing vital environment variables.")
+	}
 
 	// Create clientset
 	clientset, namespace := config.CreateClientset()
