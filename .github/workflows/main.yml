@@ -18,14 +18,15 @@ jobs:
 
     - name: Install Dependencies
       run: |
+        cd hook/src/
         go version
         go get -u golang.org/x/lint/golint
     
     - name: Build
-      run: go build .
+      run: go build hook/src/
 
     - name: Test With Coverage
-      run: go test -gcflags=-l -v  -coverprofile=coverage.txt -covermode=atomic ./...
+      run: cd hook/src/ && go test -gcflags=-l -v  -coverprofile=coverage.txt -covermode=atomic ./...
 
     - name: Upload Coverage to Codecov
       uses: codecov/codecov-action@v1
