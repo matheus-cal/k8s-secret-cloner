@@ -1,51 +1,49 @@
 # Kubernetes Secret Cloner 
 
-O Kubernetes Secret Cloner é uma aplicação open-source que permite que *secrets* sejam
-clonadas e personalizadas entre *namespaces* Kubernetes de forma e ágil e confiável, mantendo
-suas caracteristicas originais e cedendo a oportunidade de acrescentar e incorporar *labels*
-adicionais.
+The Kubernetes Secret Cloner is an open-source application that allows secrets to be 
+cloned and customized between Kubernetes' namespaces in a agile and reliable way, keeping
+its original features and providing a chance to add and embed additional labels.
 
-Complementarmente, a aplicação é capaz de aferir se a *secret* já existe no *namespace*
-pretendido, e já havendo, ela tem seus metadados e *labels* atualizado.
-
----
-
-## Funcionamento
-
-O Kubernetes Secret Cloner funciona com *jobs* unilaterais, ou seja, produzindo um
-único *job* por *secret*.
-
-O fluxo ocorre apartir do ponto no qual a aplicação checa se o *secret* existe no *namespace*
-de origem, e o retorna se sim. Uma vez que o *secret* é retornado, se não houver uma *secret* de mesmo 
-nome, ela é clonada no *namespace* pretendido. Se já houver uma *secret* de mesmo nome, ela é atualizada
-com os *patchs* e *labels* necessários.
+Additionally, the application is able to check whether the secret already exists in that
+intended place. If it already exists, it has its metadata and labels updated.
 
 ---
 
-## Requerimentos
+## Behavior
 
-Para o funcionamento da aplicação, é necessário a instalação localmente das seguintes ferramentas
-localmente:
+The Kubernetes Secret Cloner works with one-sided jobs. In other words, it produces
+a single job per secret.
 
-| Ferramenta |      Versão     |
+The flow occurs from the point at which the application checks if the secret exists in the
+source namespace and retrieves it if there is. Once the secret is retrieved, if there's not a secret
+with the same name, it's cloned in the intended namespace. If there is a secret with the same name, it is
+updated with necessary patchs and labels.
+
+---
+
+## Requirements
+
+For the application to work fully, the following tools must be locally installed:
+
+|    Tool    |      Version    |
 |:----------:|:---------------:|
-|   [Go]     |  v1.17 ou maior  |
-|[Kubernetes]|  v1.23 ou maior |
+|   [Go]     |  v1.17 or later |
+|[Kubernetes]|  v1.23 or later |
 
 [Go]: https://github.com/golang/go
 [Kubernetes]: https://github.com/kubernetes/kubernetes
 
 ---
 
-## Começando
+## Getting Started
 
-Os passos a seguir ocorrem considerando que as configurações de autorização e contexto da conexão com
-o ambiente *Kubernetes* localmente já foram formadas. 
+The following steps take place considering that the settings related to authorization and context of
+your Kubernetes' environment were locally formed.
 
-### Configuração
+### Settings
 
-O primeiro passo para a utilização da aplicação, é exportar como variáveis de ambiente as informações
-essenciais para funcionamento, no arquivo `env` em `hook/files`:
+The first step in using the application is exporting all the essential information for operation 
+as environment variables. They are located in the file `env` in `hook/files`:
 
 ```
 export SECRET_NAME=example
@@ -59,46 +57,46 @@ export K8S_NAME=example
 export NAME=example
 ```
 
-Cada uma destas variáveis de ambiente, possui uma importância no funcionamento da aplicação, e suas definições 
-serão explicadas a seguir:
+Each of these environment variables has its own importance to the application operation, and its definitions
+will be explained below:
 
-#### Variáveis da *Secret*
+#### *Secret* Variables
 
-| *Variável de Ambiente* |            *Valor*                 |
+| *Environment Variable* |            *Value*                 |
 |:----------------------:|:----------------------------------:|
-|   SECRET_NAME          |  O nome da *secret* alvo.          |
-|   SECRET_PREFIX        |  O prefixo do nome da *secret*.    |
+|   SECRET_NAME          |  The name of target *secret*.      |
+|   SECRET_PREFIX        |  Prefix name of target *secret*.   |
 
-#### Variáveis do *Namespace*
+#### *Namespace* Variables
 
-| *Variável de Ambiente* |            *Valor*                 |
+| *Environment Variable* |            *Value*                 |
 |:----------------------:|:----------------------------------:|
-|  SOURCE_NAMESPACE      |  O nome do *namespace* de origem da *secret*.                         |
-|  INTENDED_NAMESPACE    |  O nome do *namespace* pretendido no qual a *secret* vai ser clonada. |
+|  SOURCE_NAMESPACE      |  The name of source *namespace* where *secret* is.                    |
+|  INTENDED_NAMESPACE    |  The name of intended *namespace* where cloned *secret* is going to.  |
 
-#### Variáveis das *Labels*
+#### *Labels* Variables
 
-| *Variável de Ambiente* |              *Valor*                                              |
-|:----------------------:|:-----------------------------------------------------------------:|
-|   CHART                |  *label* responsável por nomear o *chart*.                        |
-|   K8S_ACCOUNT_ID       |  *label* responsável por definir o ID do *Kubernetes Account*.    |
-|   K8S_MANAGED_BY       |  *label* responsável por definir o gerenciador da *secret*.       |
-|   K8S_NAME             |  *label* responsável por definir o nome *Kubernetes* da *secret*. |
-|   NAME                 |  *label* responsável por definir o nome usual da *secret*.        |
+| *Environment Variable* |                             *Value*                                  |
+|:----------------------:|:--------------------------------------------------------------------:|
+|   CHART                |  *label* responsible for naming the *chart*.                         |
+|   K8S_ACCOUNT_ID       |  *label* responsible for defining the ID of *Kubernetes Account*.    |
+|   K8S_MANAGED_BY       |  *label* responsible for defining the *secret* manager.              |
+|   K8S_NAME             |  *label* responsible for defining the *Kubernetes* name of *secret*. |
+|   NAME                 |  *label* responsible for defining the usual name of *secret*.        |
 
-### Execução
+### Execution
 
-Uma vez que o ambiente local foi configurado com as variáveis de ambiente previamente descritas no passo
-anterior, é agora o momento de executar a aplicação.
+Once the local environment is set with the environment variables described in the previous step, is the 
+moment to execute the application.
 
-Dentro do repositório `hook/src`, execute o arquivo `main.go`.
+Inside the repository `hook/src`, execute the file `main.go`.
 
 ```
 go run main.go
 ```
 
-Uma vez que o programa é executado, para acompanhar o sucesso da operação, acompanhamos as informações de 
-de *log* disponibilizadas na saída:
+Since the application is executed, to follow success of the operation just follow the log information
+made available in the output:
 
 ```
 2000/01/01 00:00:00 Found the secret 'first-example' in namespace 'namespace1'
@@ -111,7 +109,7 @@ de *log* disponibilizadas na saída:
 
 ## Releases
 
-Os *releases* atuais mantidos, e também os futuros releases, estão e serão listados abaixo. 
+The current and future *releases* will be listed below: 
 
 | Release |  Current Patch  | Release Date |
 |:-------:|:---------------:|:------------:|
@@ -121,9 +119,10 @@ Os *releases* atuais mantidos, e também os futuros releases, estão e serão li
 
 ---
 
-## Licenciamento
+## Licensing
 
-O Kubernetes Secret Cloner é licenciado sobre [GNU] General Public License v3.0.
-Os contribuídores não garantem o funcionamento desta aplicação.
+The Kubernetes Secret Cloner is licensed under [GNU] General Public License v3.0.
+
+The contributors do not guarantee the operation of this application.
 
 [GNU]: https://github.com/matheus-cal/k8s-secret-cloner/blob/main/LICENSE
