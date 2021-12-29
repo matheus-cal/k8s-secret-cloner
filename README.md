@@ -57,7 +57,7 @@ export K8S_NAME=example
 export NAME=example
 ```
 
-You must edit its values according with the information we need.
+You must edit its values according with the information you need.
 
 Each of these environment variables has its own importance to the application operation, and its definitions
 will be explained below:
