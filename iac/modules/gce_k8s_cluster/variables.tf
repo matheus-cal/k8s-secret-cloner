@@ -6,14 +6,6 @@ variable "region" {
   description = "GCP Region"
 }
 
-variable "cluster_name" {
-  description = "GKE cluster name"
-}
-
-variable "node_pool" {
-  description =  "Node pool config"
-}
-
 variable "instance_name" {
   description = "Name of the GCE instance"
 }

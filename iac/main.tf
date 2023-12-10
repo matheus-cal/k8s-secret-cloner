@@ -11,3 +11,13 @@ module "gke_cluster" {
   cluster_name = var.cluster_name
   node_pool    = var.node_pool
 }
+
+module "gce_instance" {
+  source          = "./modules/gce_k8s_cluster"
+  project         = var.project
+  region          = var.region
+  instance_name   = var.instance_name
+  zone = var.zone
+  machine_type = var.machine_type
+  startup_script  = file(var.startup_script)
+}
