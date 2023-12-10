@@ -1,1 +1,0 @@
-{"Modules":[{"Key":"","Source":"","Dir":"."},{"Key":"gce_instance","Source":"./modules/gce_k8s_cluster","Dir":"modules/gce_k8s_cluster"},{"Key":"gke_cluster","Source":"./modules/gke","Dir":"modules/gke"}]}
